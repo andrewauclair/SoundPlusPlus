@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoundPlusPlus", "SoundPlusPlus\SoundPlusPlus.vcxproj", "{E3DAAC9A-15A8-41EC-857C-996A3AECDEDF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoundPlusPlusExample", "SoundPlusPlusExample\SoundPlusPlusExample.vcxproj", "{652D030E-8CD8-49EB-8252-2D19FF07D08D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3DAAC9A-15A8-41EC-857C-996A3AECDEDF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E3DAAC9A-15A8-41EC-857C-996A3AECDEDF}.Debug|Win32.Build.0 = Debug|Win32
+		{E3DAAC9A-15A8-41EC-857C-996A3AECDEDF}.Release|Win32.ActiveCfg = Release|Win32
+		{E3DAAC9A-15A8-41EC-857C-996A3AECDEDF}.Release|Win32.Build.0 = Release|Win32
+		{652D030E-8CD8-49EB-8252-2D19FF07D08D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{652D030E-8CD8-49EB-8252-2D19FF07D08D}.Debug|Win32.Build.0 = Debug|Win32
+		{652D030E-8CD8-49EB-8252-2D19FF07D08D}.Release|Win32.ActiveCfg = Release|Win32
+		{652D030E-8CD8-49EB-8252-2D19FF07D08D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

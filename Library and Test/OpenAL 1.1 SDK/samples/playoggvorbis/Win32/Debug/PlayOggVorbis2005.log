@@ -1,0 +1,42 @@
+﻿Build started 1/20/2012 1:30:59 PM.
+     1>Project "C:\Program Files (x86)\OpenAL 1.1 SDK\samples\playoggvorbis\Win32\PlayOggVorbis2005.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\PlayOggVorbis.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\Framework\Win32 /I..\..\..\include /I..\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _CRT_SECURE_NO_DEPRECATE /D _VC80_UPGRADE=0x0710 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\Source\PlayOggVorbis.cpp ..\..\Framework\Win32\aldlist.cpp ..\..\Framework\Win32\CWaves.cpp ..\..\Framework\Win32\Framework.cpp ..\..\Framework\Win32\LoadOAL.cpp
+         LoadOAL.cpp
+         Framework.cpp
+         CWaves.cpp
+         aldlist.cpp
+         PlayOggVorbis.cpp
+         Generating Code...
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\PlayOggVorbis.exe.embed.manifest.res" Debug\PlayOggVorbis_manifest.rc 
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(990,5): warning MSB8012: TargetPath(C:\Program Files (x86)\OpenAL 1.1 SDK\samples\playoggvorbis\Win32\Debug\PlayOggVorbis.exe) does not match the Linker's OutputFile property value (C:\Program Files (x86)\OpenAL 1.1 SDK\samples\playoggvorbis\Win32\Debug\PlayOggVorbisWin32.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(992,5): warning MSB8012: TargetName(PlayOggVorbis) does not match the Linker's OutputFile property value (PlayOggVorbisWin32). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Debug\PlayOggVorbisWin32.exe" /INCREMENTAL /NOLOGO ..\..\..\libs\win32\openal32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\PlayOggVorbis.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"Debug\PlayOggVorbis.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Debug\PlayOggVorbis.lib" /MACHINE:X86 Debug\PlayOggVorbis.exe.embed.manifest.res
+         Debug\PlayOggVorbis.obj
+         Debug\aldlist.obj
+         Debug\CWaves.obj
+         Debug\Framework.obj
+         Debug\LoadOAL.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\PlayOggVorbis.exe.embed.manifest" /manifest Debug\PlayOggVorbis.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\PlayOggVorbis.exe.embed.manifest.res" Debug\PlayOggVorbis_manifest.rc 
+       LinkEmbedManifest:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Debug\PlayOggVorbisWin32.exe" /INCREMENTAL /NOLOGO ..\..\..\libs\win32\openal32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\PlayOggVorbis.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"Debug\PlayOggVorbis.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Debug\PlayOggVorbis.lib" /MACHINE:X86 Debug\PlayOggVorbis.exe.embed.manifest.res
+         Debug\PlayOggVorbis.obj
+         Debug\aldlist.obj
+         Debug\CWaves.obj
+         Debug\Framework.obj
+         Debug\LoadOAL.obj
+         PlayOggVorbis2005.vcxproj -> C:\Program Files (x86)\OpenAL 1.1 SDK\samples\playoggvorbis\Win32\Debug\PlayOggVorbis.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\PlayOggVorbis.unsuccessfulbuild".
+         Touching "Debug\PlayOggVorbis.lastbuildstate".
+     1>Done Building Project "C:\Program Files (x86)\OpenAL 1.1 SDK\samples\playoggvorbis\Win32\PlayOggVorbis2005.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:07.62
