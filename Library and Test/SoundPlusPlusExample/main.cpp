@@ -17,93 +17,98 @@ int main()
 	//creating and initializing the manager
 	spp_AudioManager* mpAudioManager = new spp_AudioManager();
 	spp_AudioListener* mpListener = mpAudioManager->GetListener();
-	spp_AudioSource* mpSource = new spp_AudioSource(mpAudioManager);
+	//spp_AudioSource* mpSource = new spp_AudioSource(mpAudioManager);
 	spp_StreamingSource* mpStreamingSource = new spp_StreamingSource(mpAudioManager);
-	spp_Microphone* mpMicrophone = new spp_Microphone(mpAudioManager);
-	spp_AudioRecorder* mpAudioRecorder = new spp_AudioRecorder(mpAudioManager);
+	//spp_Microphone* mpMicrophone = new spp_Microphone(mpAudioManager);
+	//spp_AudioRecorder* mpAudioRecorder = new spp_AudioRecorder(mpAudioManager);
 
-	TestProcess* testProcessing = new TestProcess();
+	//TestProcess* testProcessing = new TestProcess();
 	
-	mpAudioManager->StartDebugMode();
+	//mpAudioManager->StartDebugMode();
 
-	//create varrialbes to track time
-	time_t startTime;
-	time_t currentTime;
+	////create varrialbes to track time
+	//time_t startTime;
+	//time_t currentTime;
 
-	time(&startTime);
-	time(&currentTime);
+	//time(&startTime);
+	//time(&currentTime);
 
-	//normal use tests
+	////normal use tests
 
-	cout << "Loading WAV and playing source.\n";
+	//cout << "Loading WAV and playing source.\n";
 
-	//source
-	mpAudioManager->LoadWAVSound("TruckHorn.WAV", "test");
-	mpAudioManager->AddProcessingPlugIn(testProcessing, "test");
-	mpAudioManager->LoadWAVSound("TruckHorn.WAV", "testQuiet");
-	
-	mpSource->AssignSound("testQuiet");
-	mpSource->Play("test");
-	Sleep(5000);
-	mpSource->Play("testQuiet");
-	Sleep(5000);
+	////source
+	//mpAudioManager->LoadWAVSound("TruckHorn.WAV", "test");
+	//mpAudioManager->AddProcessingPlugIn(testProcessing, "test");
+	//mpAudioManager->LoadWAVSound("TruckHorn.WAV", "testQuiet");
+	//
+	//mpSource->AssignSound("testQuiet");
+	//mpSource->Play("test");
+	//Sleep(5000);
+	//mpSource->Play("testQuiet");
+	//Sleep(5000);
 
 	cout << "Streaming source.\n";
 
-	//stream
+	////stream
 	mpStreamingSource->PrepareStream("She Sells Sanctuary Short.OGG");
 	mpStreamingSource->Play();
-	while(mpStreamingSource->IsPlaying())
-	{
-		mpStreamingSource->Update();
-	}
+	//while(mpStreamingSource->IsPlaying())
+	//{
+	//	mpStreamingSource->Update();
+	//}
 
-	mpStreamingSource->AddProcessingPlugIn(testProcessing, "test");
-	mpStreamingSource->PrepareStream("She Sells Sanctuary Short.OGG");
-	mpStreamingSource->Play();
-	while(mpStreamingSource->IsPlaying())
-	{
-		mpStreamingSource->Update();
-	}
+	//mpStreamingSource->AddProcessingPlugIn(testProcessing, "test");
+	//mpStreamingSource->PrepareStream("She Sells Sanctuary Short.OGG");
+	//mpStreamingSource->Play();
+	//while(mpStreamingSource->IsPlaying())
+	//{
+	//	mpStreamingSource->Update();
+	//}
 
-	cout << "Recording and playing back.\n";
+	//cout << "Recording and playing back.\n";
 
-	//recorder
-	mpAudioRecorder->Start();
-	time(&startTime);
-	while(difftime(currentTime, startTime) < 10.0)
-	{
-		mpAudioRecorder->Update();
+	////recorder
+	//mpAudioRecorder->Start();
+	//time(&startTime);
+	//while(difftime(currentTime, startTime) < 10.0)
+	//{
+	//	mpAudioRecorder->Update();
 
-		time(&currentTime);
-	}
+	//	time(&currentTime);
+	//}
 
-	mpAudioRecorder->Stop();
+	//mpAudioRecorder->Stop();
 
-	mpAudioRecorder->AddSoundToManager("recordtest");
-	mpSource->AssignSound("recordtest");
-	cout << "Recording and playing back II.\n";
-	mpSource->Play("recordtest");
-	Sleep(10000);
+	//mpAudioRecorder->AddSoundToManager("recordtest");
+	//mpSource->AssignSound("recordtest");
+	//cout << "Recording and playing back II.\n";
+	//mpSource->Play("recordtest");
+	//Sleep(10000);
 
-	cout << "Micriphone.\n";
+	//cout << "Micriphone.\n";
 
-	////mic
-	mpMicrophone->Start();
-	time(&startTime);
-	while(difftime(currentTime, startTime) < 10.0)
-	{
-		mpMicrophone->Update();
+	//////mic
+	//mpMicrophone->Start();
+	//time(&startTime);
+	//while(difftime(currentTime, startTime) < 10.0)
+	//{
+	//	mpMicrophone->Update();
 
-		time(&currentTime);
-	}
+	//	time(&currentTime);
+	//}
 
-	cout << "Done.";
+	//cout << "Done.";
 
-	mpAudioManager->StopDebugMode();
+	//mpAudioManager->StopDebugMode();
 
-	//check log info
 	cin.get();
 
+	delete mpAudioManager;
+	//delete mpSource;
+	delete mpStreamingSource;
+	//delete mpMicrophone;
+	//delete mpAudioRecorder
+	
 	return 0;
 }

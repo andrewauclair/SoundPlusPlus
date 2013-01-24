@@ -64,6 +64,10 @@ private:
 	bool mIsFinished;
 
 	bool mIsPlaying;
+
+	HANDLE mThreadHandle;
+	static unsigned __stdcall StartStreamingInThread(void* instance);
+	void StreamingThreadUpdate();
 };
 
 /**********************************************************************************************//**

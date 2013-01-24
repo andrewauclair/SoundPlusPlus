@@ -1,0 +1,8 @@
+*.tlog
+*.obj
+*.lastbuildstate
+*.log
+\Release
+\Debug
+*.sdf
+\ipch

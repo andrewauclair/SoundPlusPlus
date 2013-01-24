@@ -2,6 +2,7 @@
 #include <string>
 #include <al.h>
 #include <alc.h>
+#include <process.h>
 
 /**********************************************************************************************//**
  * \fn	spp_StreamingSource::spp_StreamingSource(spp_AudioManager* manager)
@@ -20,6 +21,9 @@ spp_StreamingSource::spp_StreamingSource(spp_AudioManager* manager)
 	alGenSources(1, &mSource);
 	mIsFinished = true;
 	mIsPlaying = false;
+
+	unsigned threadID;
+	mThreadHandle = (HANDLE)_beginthreadex(NULL, 0, spp_StreamingSource::StartStreamingInThread, this, CREATE_SUSPENDED, &threadID);
 }
 
 /**********************************************************************************************//**
@@ -36,6 +40,8 @@ spp_StreamingSource::~spp_StreamingSource()
 	ov_clear(&mOggInfo.oggFile);
 	alDeleteBuffers(SPP_BUFFERS_TO_QUEUE, mBufferID);
     alDeleteSources(1, &mSource);
+
+	CloseHandle(mThreadHandle);
 }
 
 /**********************************************************************************************//**
@@ -54,7 +60,8 @@ void spp_StreamingSource::Play()
 		//the source has not finished playing
 		mIsFinished = false;
 		mIsPlaying = true;
-		alSourcePlay(mSource);
+		ResumeThread(mThreadHandle);
+		//alSourcePlay(mSource);
 	}
 }
 
@@ -356,4 +363,20 @@ bool spp_StreamingSource::IsFinished()
 bool spp_StreamingSource::IsPlaying()
 {
 	return mIsPlaying;
+}
+
+unsigned __stdcall spp_StreamingSource::StartStreamingInThread(void* instance)
+{
+	spp_StreamingSource* source = (spp_StreamingSource*)instance;
+	source->StreamingThreadUpdate();
+
+	return 1;
+}
+
+void spp_StreamingSource::StreamingThreadUpdate()
+{
+	while(mIsPlaying)
+	{
+		Update();
+	}
 }
