@@ -58,6 +58,16 @@ int main()
 	//	mpStreamingSource->Update();
 	//}
 
+	Sleep(10000);
+
+	mpStreamingSource->Stop();
+
+	mpStreamingSource->Play();
+	//while(mpStreamingSource->IsPlaying())
+	//{
+	//	mpStreamingSource->Update();
+	//}
+
 	//mpStreamingSource->AddProcessingPlugIn(testProcessing, "test");
 	//mpStreamingSource->PrepareStream("She Sells Sanctuary Short.OGG");
 	//mpStreamingSource->Play();

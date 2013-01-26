@@ -21,9 +21,10 @@ spp_StreamingSource::spp_StreamingSource(spp_AudioManager* manager)
 	alGenSources(1, &mSource);
 	mIsFinished = true;
 	mIsPlaying = false;
+	mShouldCloseThread = false;
 
 	unsigned threadID;
-	mThreadHandle = (HANDLE)_beginthreadex(NULL, 0, spp_StreamingSource::StartStreamingInThread, this, CREATE_SUSPENDED, &threadID);
+	mThreadHandle = (HANDLE)_beginthreadex(NULL, 0, spp_StreamingSource::StartStreamingInThread, this, 0, &threadID);
 }
 
 /**********************************************************************************************//**
@@ -37,6 +38,12 @@ spp_StreamingSource::spp_StreamingSource(spp_AudioManager* manager)
 
 spp_StreamingSource::~spp_StreamingSource()
 {
+	EnterCriticalSection(&mSourceCriticalSection);
+	mShouldCloseThread = true;
+	LeaveCriticalSection(&mSourceCriticalSection);
+
+	WaitForSingleObject(mThreadHandle, INFINITE);
+
 	ov_clear(&mOggInfo.oggFile);
 	alDeleteBuffers(SPP_BUFFERS_TO_QUEUE, mBufferID);
     alDeleteSources(1, &mSource);
@@ -58,10 +65,11 @@ void spp_StreamingSource::Play()
 	if(!mIsPlaying)
 	{
 		//the source has not finished playing
+		EnterCriticalSection(&mSourceCriticalSection);
 		mIsFinished = false;
 		mIsPlaying = true;
 		ResumeThread(mThreadHandle);
-		//alSourcePlay(mSource);
+		LeaveCriticalSection(&mSourceCriticalSection);
 	}
 }
 
@@ -77,11 +85,11 @@ void spp_StreamingSource::Play()
 
 void spp_StreamingSource::Stop()
 {
-	if(mIsPlaying)
-	{
-		mIsPlaying = false;
-		alSourceStop(mSource);
-	}
+	EnterCriticalSection(&mSourceCriticalSection);
+	mIsPlaying = false;
+	alSourceStop(mSource);
+	ov_time_seek(&mOggInfo.oggFile, 0);
+	LeaveCriticalSection(&mSourceCriticalSection);
 }
 
 /**********************************************************************************************//**
@@ -95,7 +103,10 @@ void spp_StreamingSource::Stop()
 
 void spp_StreamingSource::Pause()
 {
+	EnterCriticalSection(&mSourceCriticalSection);
+	mIsPlaying = false;
 	alSourcePause(mSource);
+	LeaveCriticalSection(&mSourceCriticalSection);
 }
 
 /**********************************************************************************************//**
@@ -262,9 +273,13 @@ void spp_StreamingSource::PrepareStream(string fileName)
  * \date	2/19/2012
  **************************************************************************************************/
 
-void spp_StreamingSource::Update()
+bool spp_StreamingSource::Update()
 {
-	if(mIsPlaying)
+	EnterCriticalSection(&mSourceCriticalSection);
+	bool shouldContinue = mIsPlaying;
+	LeaveCriticalSection(&mSourceCriticalSection);
+
+	if(shouldContinue)
 	{
 		//getting the state of the source
 		ALenum state;
@@ -326,11 +341,19 @@ void spp_StreamingSource::Update()
 			else
 			{
 				//no more data, the stream is finished
+				EnterCriticalSection(&mSourceCriticalSection);
 				mIsFinished = true;
 				mIsPlaying = false;
+				LeaveCriticalSection(&mSourceCriticalSection);
 			}
 		}	
 	}
+
+	EnterCriticalSection(&mSourceCriticalSection);
+	bool toReturn = mShouldCloseThread;
+	LeaveCriticalSection(&mSourceCriticalSection);
+
+	return toReturn;
 }
 
 /**********************************************************************************************//**
@@ -346,7 +369,11 @@ void spp_StreamingSource::Update()
 
 bool spp_StreamingSource::IsFinished()
 {
-	return mIsFinished;
+	EnterCriticalSection(&mSourceCriticalSection);
+	bool toReturn = mIsFinished;
+	LeaveCriticalSection(&mSourceCriticalSection);
+
+	return toReturn;
 }
 
 /**********************************************************************************************//**
@@ -362,7 +389,11 @@ bool spp_StreamingSource::IsFinished()
 
 bool spp_StreamingSource::IsPlaying()
 {
-	return mIsPlaying;
+	EnterCriticalSection(&mSourceCriticalSection);
+	bool toReturn = mIsPlaying;
+	LeaveCriticalSection(&mSourceCriticalSection);
+
+	return toReturn;
 }
 
 unsigned __stdcall spp_StreamingSource::StartStreamingInThread(void* instance)
@@ -375,8 +406,9 @@ unsigned __stdcall spp_StreamingSource::StartStreamingInThread(void* instance)
 
 void spp_StreamingSource::StreamingThreadUpdate()
 {
-	while(mIsPlaying)
+	bool shouldExit = false;
+	while(!shouldExit)
 	{
-		Update();
+		shouldExit = Update();
 	}
 }

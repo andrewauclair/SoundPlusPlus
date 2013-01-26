@@ -40,7 +40,7 @@ public:
 	void Set3DSpatialInformation(spp_3DSpatialInformation properties);
 
 	void PrepareStream(string fileName);
-	void Update();
+	bool Update();
 
 	bool IsFinished();
 	bool IsPlaying();
@@ -68,6 +68,8 @@ private:
 	HANDLE mThreadHandle;
 	static unsigned __stdcall StartStreamingInThread(void* instance);
 	void StreamingThreadUpdate();
+	CRITICAL_SECTION mSourceCriticalSection;
+	bool mShouldCloseThread;
 };
 
 /**********************************************************************************************//**
