@@ -24,7 +24,7 @@ spp_StreamingSource::spp_StreamingSource(spp_AudioManager* manager)
 	mShouldCloseThread = false;
 
 	unsigned threadID;
-	mThreadHandle = (HANDLE)_beginthreadex(NULL, 0, spp_StreamingSource::StartStreamingInThread, this, 0, &threadID);
+	mThreadHandle = (HANDLE)_beginthreadex(NULL, 0, spp_StreamingSource::StartStreamingInThread, this, CREATE_SUSPENDED, &threadID);
 }
 
 /**********************************************************************************************//**
@@ -89,6 +89,7 @@ void spp_StreamingSource::Stop()
 	mIsPlaying = false;
 	alSourceStop(mSource);
 	ov_time_seek(&mOggInfo.oggFile, 0);
+	SuspendThread(mThreadHandle);
 	LeaveCriticalSection(&mSourceCriticalSection);
 }
 
@@ -106,6 +107,7 @@ void spp_StreamingSource::Pause()
 	EnterCriticalSection(&mSourceCriticalSection);
 	mIsPlaying = false;
 	alSourcePause(mSource);
+	SuspendThread(mThreadHandle);
 	LeaveCriticalSection(&mSourceCriticalSection);
 }
 

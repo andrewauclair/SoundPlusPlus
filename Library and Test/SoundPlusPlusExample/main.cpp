@@ -53,20 +53,31 @@ int main()
 	////stream
 	mpStreamingSource->PrepareStream("She Sells Sanctuary Short.OGG");
 	mpStreamingSource->Play();
-	//while(mpStreamingSource->IsPlaying())
-	//{
-	//	mpStreamingSource->Update();
-	//}
+	
+	cin.get();
 
-	Sleep(10000);
+	cout << "Paused.\n";
+	mpStreamingSource->Pause();
 
+	cin.get();
+
+	cout << "Resumed.\n";
+	mpStreamingSource->Play();
+
+	cin.get();
+
+	cout << "Stopped.\n";
 	mpStreamingSource->Stop();
 
+	cin.get();
+
+	cout << "Restarted.\n";
 	mpStreamingSource->Play();
-	//while(mpStreamingSource->IsPlaying())
-	//{
-	//	mpStreamingSource->Update();
-	//}
+	while(mpStreamingSource->IsPlaying())
+	{
+		static int i = 0;
+		i++;
+	}
 
 	//mpStreamingSource->AddProcessingPlugIn(testProcessing, "test");
 	//mpStreamingSource->PrepareStream("She Sells Sanctuary Short.OGG");
