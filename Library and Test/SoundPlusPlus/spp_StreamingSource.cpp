@@ -412,5 +412,6 @@ void spp_StreamingSource::StreamingThreadUpdate()
 	while(!shouldExit)
 	{
 		shouldExit = Update();
+		Sleep(STREAM_SLEEP_TIME);
 	}
 }

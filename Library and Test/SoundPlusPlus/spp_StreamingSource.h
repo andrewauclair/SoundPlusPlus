@@ -1,5 +1,7 @@
 #pragma once
 
+#define STREAM_SLEEP_TIME 10
+
 #include <windows.h>
 #include <al.h>
 #include <alc.h>
